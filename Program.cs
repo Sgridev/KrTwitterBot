@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using TweetSharp;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace twitterBot1
 {
@@ -19,20 +20,20 @@ namespace twitterBot1
         static void Main(string[] args)
         {
             Console.WriteLine($"<{DateTime.Now}> - Bot Started");
-            if(!SendTweet("Daily reminder: Sara è bellissima " + random.Next(1000).ToString()))
+            SendTweet("Daily reminder: Sara è bellissima " + random.Next(1000).ToString());
             Console.Read();
         }
 
-        private static bool SendTweet(string _status)
+        private static void SendTweet(string _status)
         {
-            bool flag = true;
+           
             service.SendTweet(new SendTweetOptions{ Status = _status} , (tweet, response) =>
             {
                 if(response.StatusCode == System.Net.HttpStatusCode.OK){
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"<{DateTime.Now}> - Tweet Sent!");
                     Console.ResetColor();
-                    flag = true;
+                    Environment.Exit(0);
                 }
             else
             {
@@ -40,11 +41,12 @@ namespace twitterBot1
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"<ERROR> " + response.Error.Message);
                     Console.ResetColor();
-                    flag = false;
+                    
             }
         
         });
-           return flag;
+          
+
             }
     }
 }
