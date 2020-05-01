@@ -31,23 +31,17 @@ namespace twitterBot1
             service.SendTweet(new SendTweetOptions{ Status = _status} , (tweet, response) =>
             {
                 if(response.StatusCode == System.Net.HttpStatusCode.OK){
-                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"<{DateTime.Now}> - Tweet Sent!");
-                    Console.ResetColor();
                     Environment.Exit(0);
                 }
             else
             {
                  if(response.StatusCode == System.Net.HttpStatusCode.OK)
-                    Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine($"<ERROR> " + response.Error.Message);
-                    Console.ResetColor();
-                    
             }
         
         });
-          
 
-            }
+        }
     }
 }
